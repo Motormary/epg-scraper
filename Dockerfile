@@ -20,3 +20,5 @@ RUN addgroup -S epg && adduser -S epg -G epg \
 
 WORKDIR $WORKDIR
 USER epg
+
+CMD ["sleep", "infinity"]
