@@ -19,7 +19,7 @@
     "test": "cross-env TZ=Pacific/Nauru npx jest --runInBand",
     "postinstall": "npm run api:load",
     "prepare": "husky",
-    "scrape": "tsx scripts/commands/epg/grab.ts --sites=allente.no -l 'no' -d 2500 --maxConnections 10 -t 5000 output=/guides/guide.xml"
+    "scrape": "tsx scripts/commands/epg/grab.ts --sites=allente.no -l 'no' -d 2500 --maxConnections 10 -t 5000 --output=guides/guide.xml"
   },
   "private": true,
   "license": "UNLICENSED",
