@@ -5,7 +5,7 @@ ARG WORKDIR=/epg
 
 RUN apk update \
     && apk upgrade --available \
-    && apk add curl git tzdata bash \
+    && apk add curl git tzdata bash su-exec \
     && mkdir -p "${WORKDIR}" \
     && cd "${WORKDIR}" \
     && git clone --depth 1 -b "${GIT_BRANCH}" "${GIT_REPO}" . \
@@ -14,11 +14,13 @@ RUN apk update \
 RUN apk del git curl \
     && rm -rf /var/cache/apk/*
 
-# Create non-root user + own workdir
 RUN addgroup -S epg && adduser -S epg -G epg \
     && chown -R epg:epg $WORKDIR
 
 WORKDIR $WORKDIR
-USER epg
 
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["sleep", "infinity"]
